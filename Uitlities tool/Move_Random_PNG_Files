@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#shopt -s nullglob
+#numfiles=(*)
+#numfiles=${#numfiles[@]}
+#numfiles=$((numfiles - 1))
+#echo ${numfiles}
+
+gshuf -n "$1" -e *.png | xargs -J {} mv {} "$2"
