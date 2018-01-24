@@ -73,3 +73,15 @@ test_image = image.load_img('dataset/prediction_set/N_letter_2.png', target_size
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis = 0)
 result = classifier.predict(test_image)
+
+# Part 4 - convert to Core ML model
+import h5py
+classifier_json = classifier.to_json()
+with open("classifier.json", "w") as json_file:
+    json_file.write(classifier_json)
+classifier.save_weights("classifier.h5")
+print("Saved model to disk")
+
+import coremltools
+coreml_model = coremltools.converters.keras.convert(classifier)
+coreml_model.save("number_chacters_recognition_model.mlmodel")
